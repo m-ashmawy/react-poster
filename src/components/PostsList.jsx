@@ -4,21 +4,29 @@ import Modal from "./Modal";
 import NewPost from "./NewPost";
 import Post from "./Post";
 import classes from "./PostsList.module.css";
-function PostsList({ showModal, hideModalHandler }) {
+function PostsList({ showModal, hideModalHandler, posts, onSubmitNewPost }) {
   return (
     <>
       {showModal &&
         createPortal(
           <Modal hideModalHandler={hideModalHandler}>
-            <NewPost />
+            <NewPost
+              hideModalHandler={hideModalHandler}
+              onSubmitNewPost={onSubmitNewPost}
+            />
           </Modal>,
           document.getElementById("modal-root")
         )}
 
-      <ul className={classes["posts-list"]}>
-        <Post author="Mohamed" body="my name is Mohamed" />
-        <Post author="Max" body="my name is max" />
-      </ul>
+      {posts.length ? (
+        <ul className={classes["posts-list"]}>
+          {posts.map((post) => (
+            <Post key={post.id} author={post.author} body={post.body} />
+          ))}
+        </ul>
+      ) : (
+        <h2 style={{ textAlign: "center" }}>No posts yet!</h2>
+      )}
     </>
   );
 }
