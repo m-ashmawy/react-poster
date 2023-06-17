@@ -15,7 +15,7 @@ function NewPost({ hideModalHandler, onSubmitNewPost }) {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    onSubmitNewPost({ author: enteredName, body: enteredText, id: Date.now() });
+    onSubmitNewPost({ author: enteredName, body: enteredText });
     hideModalHandler();
   };
   return (

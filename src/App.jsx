@@ -1,15 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MainHeader from "./components/MainHeader";
 import PostsList from "./components/PostsList";
 
-const initial_posts = [];
 function App() {
-  const [posts, setPosts] = useState(initial_posts);
+  const [posts, setPosts] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  ////////////////////////////////////////////////////////////////
+
+  const getDataBasePosts = () => {
+    console.log("fetching");
+    fetch("http://localhost:8080/posts")
+      .then((res) => res.json())
+      .then((data) => setPosts(data.posts));
+    console.log("finished fetching");
+  };
+
+  useEffect(() => {
+    getDataBasePosts();
+  }, []);
 
   const onSubmitNewPost = (newPost) => {
-    setPosts((prevPosts) => [newPost, ...prevPosts]);
+    fetch("http://localhost:8080/posts", {
+      method: "POST",
+      body: JSON.stringify(newPost),
+      headers: { "Content-Type": "application/json" },
+    }).then(() => getDataBasePosts());
   };
+
+  ////////////////////////////////////////////////////////////////
   const onCreatePost = () => {
     setShowModal(true);
   };
