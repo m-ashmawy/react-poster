@@ -1,13 +1,15 @@
 /* eslint-disable react/prop-types */
-import { createPortal } from "react-dom";
-import Modal from "./Modal";
-import NewPost from "./NewPost";
+// import { createPortal } from "react-dom";
+// import Modal from "./Modal";
+// import NewPost from "./NewPost";
 import Post from "./Post";
 import classes from "./PostsList.module.css";
-function PostsList({ showModal, hideModalHandler, posts, onSubmitNewPost }) {
+import { useLoaderData } from "react-router-dom";
+function PostsList() {
+  const posts = useLoaderData();
   return (
     <>
-      {showModal &&
+      {/* {showModal &&
         createPortal(
           <Modal hideModalHandler={hideModalHandler}>
             <NewPost
@@ -16,7 +18,7 @@ function PostsList({ showModal, hideModalHandler, posts, onSubmitNewPost }) {
             />
           </Modal>,
           document.getElementById("modal-root")
-        )}
+        )} */}
 
       {posts.length ? (
         <ul className={classes["posts-list"]}>
