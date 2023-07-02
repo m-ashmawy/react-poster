@@ -34,7 +34,7 @@ app.post("/posts", async (req, res) => {
   const postData = req.body;
   const newPost = {
     ...postData,
-    id: Date.now(),
+    id: Date.now().toString(),
   };
   const updatedPosts = [newPost, ...existingPosts];
   await storePosts(updatedPosts);
